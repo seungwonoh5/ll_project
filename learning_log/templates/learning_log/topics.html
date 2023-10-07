@@ -4,8 +4,8 @@
 
 <p>Topics</p>
 <ul>
-    {% for topic in g_topics %}
-        <li>{{ topic.text }}</li>
+    {% for topic in topics %}
+        <li><a href="{% url 'learning_log:topic_detail' topic.id %}">{{ topic.text }}</a></li>
     {% empty %}
         <li>No topics has been added yet.</li>
     {% endfor %}
