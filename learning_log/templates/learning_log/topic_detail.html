@@ -3,6 +3,7 @@
 {% block content %}
     <p>Topic: {{ topic.text }}</p>
     <p>Entries:</p>
+    <button><a href="{% url 'learning_log:new_entry' topic.id %}">Add new entry</a></button>
     <ul>
         {% for entry in entries %}
             <li>
