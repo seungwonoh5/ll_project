@@ -54,3 +54,21 @@ def new_entry(request, topic_id):
             return redirect('learning_log:topic_detail', topic_id=topic_id)
 
     return render(request, 'learning_log/new_entry.html', {'topic':topic, 'form': form})
+
+def edit_entry(request, entry_id):
+    """Add a new entry for a particular topic."""
+    entry = Entry.objects.get(id=entry_id)
+    topic = entry.topic
+
+    # No data submitted; create a blank form.
+    if request.method != 'POST':
+            form = EntryForm(instance=entry)
+    else:    
+        # POST data submitted; process data.
+        form = EntryForm(instance=entry, data=request.POST)
+        if form.is_valid():
+            form.save()
+
+            return redirect('learning_log:topic_detail', topic_id=topic.id)
+
+    return render(request, 'learning_log/edit_entry.html', {'entry': entry, 'topic':topic, 'form': form})
